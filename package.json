@@ -1,0 +1,27 @@
+{
+  "name": "user-service-grpc",
+  "version": "1.0.0",
+  "description": "demo for NodeJS gRPC service and client",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "build": "tsc && npm run build-proto-js",
+    "start": "npm run build && node ./build/server.js",
+    "build-proto-ts": "mkdir -p ./src/grpc-ts-types && ./node_modules/grpc-tools/bin/protoc --ts_out=./src/grpc-ts-types ./proto/*.proto",
+    "build-proto-js": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./build/src/grpc-ts-types --grpc_out=./build/src/grpc-ts-types ./proto/*.proto"
+  },
+  "author": "Tatiana Getmanova",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/faker": "^6.6.9",
+    "grpc-tools": "^1.11.2",
+    "grpc_tools_node_protoc_ts": "^5.3.2",
+    "typescript": "^4.6.3",
+    "typesync": "^0.9.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^6.1.2",
+    "@grpc/grpc-js": "^1.6.2",
+    "grpc": "^1.24.11"
+  }
+}

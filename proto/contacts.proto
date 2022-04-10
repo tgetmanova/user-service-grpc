@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package contacts;
+
+service ContactService {
+
+  rpc getUserContacts(GetUserContactRequest) returns (UserContactsResponse);
+}
+
+message GetUserContactRequest {
+  int32 userId = 1;
+   }
+
+message UserContactsResponse {
+  repeated Contact contact = 1;
+}
+
+message Contact {
+    int32 id = 1;
+    string email = 2;
+    string phone = 3;
+}
