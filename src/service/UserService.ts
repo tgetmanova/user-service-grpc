@@ -1,6 +1,6 @@
 import { Status } from '@grpc/grpc-js/build/src/constants';
 import { sendUnaryData, ServerUnaryCall } from '@grpc/grpc-js/build/src/server-call';
-import { CreateUserRequest, GetUserRequest, UserListResponse, UserResponse } from "../src/grpc-ts-types/proto/users_pb";
+import { CreateUserRequest, GetUserRequest, UserListResponse, UserResponse } from "../grpc-ts-types/proto/users_pb";
 import { UserDataManager } from "./UserDataManager";
 
 export class UserService {
@@ -25,7 +25,7 @@ export class UserService {
             let user = new UserResponse();
             user.setFirstname(u.firstName);
             user.setLastname(u.lastName);
-            user.setId(u.id);
+            user.setId(u.id!);
             return user;
         }));
         callback(null, usersResponse);
@@ -35,7 +35,7 @@ export class UserService {
         const userModel = UserDataManager.addUser(call.request.getFirstname(), call.request.getLastname());
         
         const userResponse = new UserResponse();
-        userResponse.setId(userModel.id);
+        userResponse.setId(userModel.id!);
         userResponse.setFirstname(userModel.firstName);
         userResponse.setLastname(userModel.lastName);
         callback(null, userResponse);

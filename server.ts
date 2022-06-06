@@ -1,6 +1,6 @@
 import * as grpc from '@grpc/grpc-js'
-import { ContactService } from './service/ContactService';
-import { UserService } from './service/UserService';
+import { ContactService } from './src/service/ContactService';
+import { UserService } from './src/service/UserService';
 import { ContactServiceService } from './src/grpc-ts-types/proto/contacts_grpc_pb';
 import { UserServiceService } from './src/grpc-ts-types/proto/users_grpc_pb';
 
