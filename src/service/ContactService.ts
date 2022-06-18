@@ -1,7 +1,7 @@
 import { Status } from '@grpc/grpc-js/build/src/constants';
 import { sendUnaryData, ServerUnaryCall } from '@grpc/grpc-js/build/src/server-call';
 import { Contact, GetUserContactRequest, UserContactsResponse } from "../grpc-ts-types/proto/contacts_pb";
-import { UserDataManager } from "./UserDataManager";
+import { UserDataManager } from "../UserDataManager";
 
 export class ContactService {
 

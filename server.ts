@@ -13,7 +13,8 @@ function main() {
     {
       getUser: userService.getUser,
       getUsers: userService.getUsers,
-      createUser: userService.createNewUser
+      createUser: userService.createNewUser,
+      listenToUserMessages: userService.listenToUserMessages
     });
   server.addService(ContactServiceService,
     {

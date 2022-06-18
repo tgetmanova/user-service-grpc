@@ -1,5 +1,5 @@
-import { ContactModel } from "../data/ContactModel";
-import { UserModel } from "../data/UserModel";
+import { ContactModel } from "./data/ContactModel";
+import { UserModel } from "./data/UserModel";
 import faker  from "@faker-js/faker";
 
 export class UserDataManager {

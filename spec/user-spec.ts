@@ -2,6 +2,8 @@ import faker from '@faker-js/faker';
 import { UserClient } from '../src/client/UserClient';
 import { UserModel } from '../src/data/UserModel';
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 25000;
+
 const userClient = new UserClient();
 
 describe('Users service tests', () => {
@@ -20,6 +22,14 @@ describe('Users service tests', () => {
     expect(actualUser).withContext('Newly created user cannot be found in user list retrieved by its identifier').not.toBeUndefined();
     expect(actualUser?.firstname).withContext('First name is not as expected').toEqual(expectedUser.firstName);
     expect(actualUser?.lastname).withContext('Last name is not as expected').toEqual(expectedUser.lastName);
+  });
+
+  it('Listening to expected number of messages should collect specified count of messages from server stream', async () => {
+    let expectedMessagesCount = 15;
+
+    let messages = await userClient.listenToUserMessages(expectedMessagesCount);
+
+    expect(messages.length).withContext("Unexpected number of messages received").toEqual(expectedMessagesCount);
   });
 
 });

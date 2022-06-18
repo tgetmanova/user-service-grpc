@@ -12,6 +12,7 @@ interface IUserServiceService extends grpc.ServiceDefinition<grpc.UntypedService
     getUser: IUserServiceService_IgetUser;
     getUsers: IUserServiceService_IgetUsers;
     createUser: IUserServiceService_IcreateUser;
+    listenToUserMessages: IUserServiceService_IlistenToUserMessages;
 }
 
 interface IUserServiceService_IgetUser extends grpc.MethodDefinition<proto_users_pb.GetUserRequest, proto_users_pb.UserResponse> {
@@ -41,6 +42,15 @@ interface IUserServiceService_IcreateUser extends grpc.MethodDefinition<proto_us
     responseSerialize: grpc.serialize<proto_users_pb.UserResponse>;
     responseDeserialize: grpc.deserialize<proto_users_pb.UserResponse>;
 }
+interface IUserServiceService_IlistenToUserMessages extends grpc.MethodDefinition<proto_users_pb.UserMessagesRequest, proto_users_pb.UserMessage> {
+    path: "/users.UserService/listenToUserMessages";
+    requestStream: false;
+    responseStream: true;
+    requestSerialize: grpc.serialize<proto_users_pb.UserMessagesRequest>;
+    requestDeserialize: grpc.deserialize<proto_users_pb.UserMessagesRequest>;
+    responseSerialize: grpc.serialize<proto_users_pb.UserMessage>;
+    responseDeserialize: grpc.deserialize<proto_users_pb.UserMessage>;
+}
 
 export const UserServiceService: IUserServiceService;
 
@@ -48,6 +58,7 @@ export interface IUserServiceServer {
     getUser: grpc.handleUnaryCall<proto_users_pb.GetUserRequest, proto_users_pb.UserResponse>;
     getUsers: grpc.handleUnaryCall<google_protobuf_empty_pb.Empty, proto_users_pb.UserListResponse>;
     createUser: grpc.handleUnaryCall<proto_users_pb.CreateUserRequest, proto_users_pb.UserResponse>;
+    listenToUserMessages: grpc.handleServerStreamingCall<proto_users_pb.UserMessagesRequest, proto_users_pb.UserMessage>;
 }
 
 export interface IUserServiceClient {
@@ -60,6 +71,8 @@ export interface IUserServiceClient {
     createUser(request: proto_users_pb.CreateUserRequest, callback: (error: grpc.ServiceError | null, response: proto_users_pb.UserResponse) => void): grpc.ClientUnaryCall;
     createUser(request: proto_users_pb.CreateUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_users_pb.UserResponse) => void): grpc.ClientUnaryCall;
     createUser(request: proto_users_pb.CreateUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_users_pb.UserResponse) => void): grpc.ClientUnaryCall;
+    listenToUserMessages(request: proto_users_pb.UserMessagesRequest, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_users_pb.UserMessage>;
+    listenToUserMessages(request: proto_users_pb.UserMessagesRequest, metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_users_pb.UserMessage>;
 }
 
 export class UserServiceClient extends grpc.Client implements IUserServiceClient {
@@ -73,4 +86,6 @@ export class UserServiceClient extends grpc.Client implements IUserServiceClient
     public createUser(request: proto_users_pb.CreateUserRequest, callback: (error: grpc.ServiceError | null, response: proto_users_pb.UserResponse) => void): grpc.ClientUnaryCall;
     public createUser(request: proto_users_pb.CreateUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: proto_users_pb.UserResponse) => void): grpc.ClientUnaryCall;
     public createUser(request: proto_users_pb.CreateUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: proto_users_pb.UserResponse) => void): grpc.ClientUnaryCall;
+    public listenToUserMessages(request: proto_users_pb.UserMessagesRequest, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_users_pb.UserMessage>;
+    public listenToUserMessages(request: proto_users_pb.UserMessagesRequest, metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<proto_users_pb.UserMessage>;
 }

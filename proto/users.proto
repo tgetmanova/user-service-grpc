@@ -9,6 +9,7 @@ service UserService {
   rpc getUser(GetUserRequest) returns (UserResponse);
   rpc getUsers(google.protobuf.Empty) returns (UserListResponse);
   rpc createUser(CreateUserRequest) returns (UserResponse);
+  rpc listenToUserMessages(UserMessagesRequest) returns (stream UserMessage);
 }
 
 message GetUserRequest {
@@ -28,4 +29,13 @@ message UserResponse {
 
 message UserListResponse {
   repeated UserResponse users = 1;
+}
+
+message UserMessage {
+  int32 userId = 1;
+  string text = 2;
+}
+
+message UserMessagesRequest {
+  int32 messagesCount = 1;
 }
