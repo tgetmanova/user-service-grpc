@@ -9,25 +9,25 @@ const userClient = new UserClient();
 describe('Users service tests', () => {
 
   it('Newly created user should be seen in user list', async () => {
-    let expectedUser: UserModel = {
+    const expectedUser: UserModel = {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName()
     }
 
-    let createdUser = await userClient.createUser(expectedUser);
+    const createdUser = await userClient.createUser(expectedUser);
 
-    let users = await userClient.getUsers();
+    const users = await userClient.getUsers();
 
-    let actualUser = users.usersList.find(u => u.id == createdUser.id);
+    const actualUser = users.usersList.find(u => u.id === createdUser.id);
     expect(actualUser).withContext('Newly created user cannot be found in user list retrieved by its identifier').not.toBeUndefined();
     expect(actualUser?.firstname).withContext('First name is not as expected').toEqual(expectedUser.firstName);
     expect(actualUser?.lastname).withContext('Last name is not as expected').toEqual(expectedUser.lastName);
   });
 
   it('Listening to expected number of messages should collect specified count of messages from server stream', async () => {
-    let expectedMessagesCount = 15;
+    const expectedMessagesCount = 15;
 
-    let messages = await userClient.listenToUserMessages(expectedMessagesCount);
+    const messages = await userClient.listenToUserMessages(expectedMessagesCount);
 
     expect(messages.length).withContext("Unexpected number of messages received").toEqual(expectedMessagesCount);
   });

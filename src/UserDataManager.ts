@@ -14,7 +14,7 @@ export class UserDataManager {
     ]
 
     static addUser(firstName: string, lastName: string) : UserModel {    
-        let newUser : UserModel =  { id: faker.datatype.number(), firstName, lastName, contacts: [] }
+        const newUser : UserModel =  { id: faker.datatype.number(), firstName, lastName, contacts: [] }
         UserDataManager.Users.push(newUser);
         return newUser;
     }

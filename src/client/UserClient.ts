@@ -14,20 +14,20 @@ export class UserClient {
     }
 
     public async createUser(userModel: UserModel): Promise<UserResponse.AsObject> {
-        let createUserRequest = new CreateUserRequest();
-        createUserRequest.setFirstname(userModel.firstName);
-        createUserRequest.setLastname(userModel.lastName);
+        const createUserRequest = new CreateUserRequest()
+            .setFirstname(userModel.firstName)
+            .setLastname(userModel.lastName);
 
-        let createUserResponse = await new Promise<UserResponse>(resolve => {
+        const createUserResponse = await new Promise<UserResponse>(resolve => {
             this.client.createUser(
                 createUserRequest,
-                (error, response) => {
+                (_, response) => {
                     console.log(response);
                     resolve(response);
                 });
         });
 
-        let createdUser = UserResponse.toObject(false, createUserResponse);
+        const createdUser = UserResponse.toObject(false, createUserResponse);
         console.log('CREATED USER:');
         console.log(createdUser);
 
@@ -35,27 +35,27 @@ export class UserClient {
     };
 
     public async getUsers(): Promise<UserListResponse.AsObject> {
-        let userListresponse = await new Promise<UserListResponse>(resolve => {
+        const userListresponse = await new Promise<UserListResponse>(resolve => {
             this.client.getUsers(
                 new google_protobuf_empty_pb.Empty,
-                (error, response) => {
+                (_, response) => {
                     console.log(response);
                     resolve(response);
                 });
         });
 
-        let users = UserListResponse.toObject(false, userListresponse);
+        const users = UserListResponse.toObject(false, userListresponse);
         console.log(`USERS: ${users}`);
 
         return users;
     }
 
     public listenToUserMessages(messagesCount: number): Promise<Array<UserMessage>> {
-        let userMessageRequest = new UserMessagesRequest().setMessagescount(messagesCount);
-        let eventStream = this.client.listenToUserMessages(userMessageRequest);
+        const userMessageRequest = new UserMessagesRequest().setMessagescount(messagesCount);
+        const eventStream = this.client.listenToUserMessages(userMessageRequest);
 
-        let userMessageResult = new Promise<Array<UserMessage>>(resolve => {
-            let userMessages = new Array<UserMessage>();
+        const userMessageResult = new Promise<Array<UserMessage>>(resolve => {
+            const userMessages = new Array<UserMessage>();
             eventStream.on('data', userMessage => {
                 console.log(`Received message: ${userMessage}`);
                 userMessages.push(userMessage);
